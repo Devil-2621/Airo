@@ -78,3 +78,11 @@ html, body, :root {
     @apply bg-background text-foreground;
   }
 }
+
+/* .cl-pageScrollBox {
+  background-color: #e8a178/50;
+}
+
+.cl-formFieldInput {
+  background-color: #6bffdf/50;
+} */
