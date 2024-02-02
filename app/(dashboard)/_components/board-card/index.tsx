@@ -13,6 +13,7 @@ import { api } from "@/convex/_generated/api";
 import { formatDistanceToNow } from 'date-fns';
 import { useAuth } from "@clerk/nextjs";
 import { Actions } from "@/components/actions";
+import { Button } from "@/components/ui/button";
 
 interface BoardCardProps {
     id: string;
@@ -73,7 +74,7 @@ export const BoardCard = ({
 							id={id}
 							title={title}
 						>
-							<button className='absolute right-1 top-1 opacity-0 group-hover:opacity-100 transition-opacity px-1 py-1 outline-none'>
+							<Button className='absolute right-1 top-1 opacity-0 group-hover:opacity-100 transition-opacity px-1 py-1 outline-none bg-transparent hover:bg-transparent'>
 								<Image
 									src='/icons/More.svg'
 									alt='More icon'
@@ -81,7 +82,7 @@ export const BoardCard = ({
 									height={28}
 									className='text-white opacity-65 hover:opacity-100 transition-opacity bg-white rounded-lg'
 								/>
-							</button>
+							</Button>
 						</Actions>
 					</div>
 					<Footer

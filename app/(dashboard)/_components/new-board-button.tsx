@@ -6,6 +6,7 @@ import { useApiMutation } from "@/hooks/use-api-mutation";
 
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import {useRouter} from 'next/navigation';
 
 interface NewBoardButtonProps {
     orgId: string,
@@ -15,6 +16,7 @@ interface NewBoardButtonProps {
 export const NewBoardButton = ({
     orgId, disabled,
 }: NewBoardButtonProps) => {
+    const router = useRouter();
     const { mutate, pending } = useApiMutation(api.board.create);
     
     const onClick = () => {
@@ -23,6 +25,8 @@ export const NewBoardButton = ({
         })
             .then((id) => {
                 toast.success('Board created successfully');
+                router.push(`/board/${id}`);
+
                 // TODO: Redirect to board/{id}
             })
             .catch(() => toast.error('Failed to create board'));
