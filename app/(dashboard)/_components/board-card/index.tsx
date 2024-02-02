@@ -1,16 +1,18 @@
 "use client"
 
+import { toast } from "sonner";
 import Image from "next/image";
 import Link from "next/link";
 import { Overlay } from "./overlay";
 import { Footer } from "./footer";
 
 import { Skeleton } from "@/components/ui/skeleton";
+import { useApiMutation } from "@/hooks/use-api-mutation";
+import { api } from "@/convex/_generated/api";
 
 import { formatDistanceToNow } from 'date-fns';
 import { useAuth } from "@clerk/nextjs";
 import { Actions } from "@/components/actions";
-import { sign } from "crypto";
 
 interface BoardCardProps {
     id: string;
@@ -40,6 +42,20 @@ export const BoardCard = ({
         addSuffix: true,
     });
 
+    const { mutate: onFavorite, pending: pendingFavorite} = useApiMutation(api.board.favorite);
+    const { mutate: onUnFavorite, pending: pendingUnFavorite } = useApiMutation(api.board.unfavorite);
+    
+    const toggleFavorite = () => {
+        if (isFavorite) {
+            onUnFavorite({ id })
+                .catch(() => toast.error('Failed to unfavorite'));
+        }
+        else {
+            onFavorite({ id, orgId })
+            .catch(() => toast.error('Failed to favorite'));
+        }
+    };
+
     return (
 			<Link href={`/board/${id}`}>
 				<div className='group aspect-[100/127] border shadow-lg hovershadow-xl hover:shadow-violet-300 rounded-lg flex flex-col justify-between overflow-hidden'>
@@ -48,33 +64,33 @@ export const BoardCard = ({
 							src={imageUrl}
 							alt={title}
 							fill
-                        className='object-fit'
-                        priority={true}
+							className='object-fit'
+							priority={true}
 						/>
-                    <Overlay />
-                    <Actions
-                        side='right'
-                        id={ id }
-                        title={ title }
-                    >
-                        <button className="absolute right-1 top-1 opacity-0 group-hover:opacity-100 transition-opacity px-1 py-1 outline-none">
-                            <Image
-                                src='/icons/More.svg'
-                                alt="More icon"
-                                width={ 28 }
-                                height={ 28 }
-                                className="text-white opacity-65 hover:opacity-100 transition-opacity bg-white rounded-lg"
-                            />
-                        </button>
-                    </Actions>
+						<Overlay />
+						<Actions
+							side='right'
+							id={id}
+							title={title}
+						>
+							<button className='absolute right-1 top-1 opacity-0 group-hover:opacity-100 transition-opacity px-1 py-1 outline-none'>
+								<Image
+									src='/icons/More.svg'
+									alt='More icon'
+									width={28}
+									height={28}
+									className='text-white opacity-65 hover:opacity-100 transition-opacity bg-white rounded-lg'
+								/>
+							</button>
+						</Actions>
 					</div>
 					<Footer
 						isFavorite={isFavorite}
 						title={title}
 						authorLabel={authorLabel}
 						createdAtLabel={createdAtlabel}
-						onClick={() => {}}
-						disabled={false}
+						onClick={toggleFavorite}
+						disabled={pendingFavorite || pendingUnFavorite}
 					/>
 				</div>
 			</Link>
