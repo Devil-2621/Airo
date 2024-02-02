@@ -52,10 +52,17 @@ export const OrgSidebar = () => {
 					variant={favorites ? 'ghost' : 'secondary'}
 					asChild
 					size='lg'
-					className='font-normal justify-start px-2 w-full'
+					className='font-normal justify-start px-2 w-full gap-2'
 				>
 					<Link href='/'>
-						<LayoutDashboard className='h-4 w-4 mr-2' />
+						{/* <LayoutDashboard className='h-4 w-4 mr-2' /> */}
+						<Image
+							src='/icons/Category2.png'
+							alt='TeamBoard icon'
+							height={32}
+							width={32}
+							className=''
+						/>
 						Team boards
 					</Link>
 				</Button>
@@ -63,7 +70,7 @@ export const OrgSidebar = () => {
 					variant={favorites ? 'secondary' : 'ghost'}
 					asChild
 					size='lg'
-					className='font-normal justify-start px-2 w-full'
+					className='font-normal justify-start px-2 w-full gap-2'
 				>
 					<Link
 						href={{
@@ -71,7 +78,14 @@ export const OrgSidebar = () => {
 							query: { favorites: true },
 						}}
 					>
-						<Star className='h-4 w-4 mr-2' />
+						{/* <Star className='h-4 w-4 mr-2' /> */}
+						<Image
+							src='/icons/Star.png'
+							alt='Favorites icon'
+							height={32}
+							width={32}
+							className='bg-transparent'
+						/>
 						Favorite boards
 					</Link>
 				</Button>

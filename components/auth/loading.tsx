@@ -9,6 +9,7 @@ export const Loading = () => {
                 width={ 220 }
                 height={ 220 }
                 className="transparent"
+                priority={true}
             />
         </div>
     )

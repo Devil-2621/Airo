@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { ChangeEvent, useEffect, useState } from 'react';
 
 import { Input } from '@/components/ui/input';
+import Image from 'next/image';
 
 export const SearchInput = () => {
 	const router = useRouter();
@@ -33,9 +34,16 @@ export const SearchInput = () => {
 
 	return (
 		<div className='w-full relative'>
-			<Search className='absolute top-1/2 left-3 transform -translate-y-1/2 text-muted-foreground h-4 w-4' />
+			{/* <Search className='absolute top-1/2 left-3 transform -translate-y-1/2 text-muted-foreground h-4 w-4' /> */}
+			<Image
+				src='/icons/Search.svg'
+				alt='Search Icon'
+				width={ 25 }
+				height={ 25 }
+				className='absolute top-1/2 left-3 transform -translate-y-[55%] text-muted-foreground'
+			/>
 			<Input
-				className='w-full max-w-[516px] pl-9'
+				className='w-full max-w-[516px] pl-12'
 				placeholder='Search boards'
 				onChange={handleChange}
 				value={value}

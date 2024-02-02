@@ -3,13 +3,21 @@ import { OrganizationProfile } from '@clerk/nextjs';
 
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import Image from 'next/image';
 
 export const InviteButton = () => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
 				<Button variant='outline'>
-					<Plus className='h-4 w-4 mr-2' />
+					{/* <Plus className='h-4 w-4 mr-2' /> */}
+					<Image
+						src='/icons/Plus.svg'
+						alt='Plus icon'
+						width={25}
+						height={ 25 }
+						className='mr-2'
+					/>
 					Invite members
 				</Button>
 			</DialogTrigger>

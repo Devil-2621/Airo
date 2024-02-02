@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 
+import { Toaster } from "@/components/ui/sonner";
 import { ConvexClientProvider } from "@/providers/convex-client-provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const pop = Poppins({ weight: '300',  style: 'normal', subsets: ['latin']});
 
 export const metadata: Metadata = {
   title: "Airo",
@@ -17,12 +18,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={ inter.className }>
+		<html lang='en'>
+			<body className={pop.className}>
         <ConvexClientProvider>
-          { children }
-        </ConvexClientProvider>
-      </body>
-    </html>
-  );
+          <Toaster richColors closeButton theme="light" />
+					{children}
+				</ConvexClientProvider>
+			</body>
+		</html>
+	);
 }

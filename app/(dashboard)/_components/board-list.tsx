@@ -1,5 +1,9 @@
 "use client"
 
+import { useQuery } from 'convex/react';
+
+import { api } from '@/convex/_generated/api';
+
 import { EmptyBoards } from './empty-boards';
 import { EmptyFavorites } from './empty-favorites';
 import { EmptySearch } from './empty-search';
