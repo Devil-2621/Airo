@@ -16,9 +16,12 @@ export const NewButton = () => {
                         align="start"
                         sideOffset={18}
                     >
-							<button className='bg-[#6bffdf]/60 h-full w-full rounded-lg flex items-center justify-center opacity-60 hover:opacity-100 hover:bg-[#6bffdf]/90 transition shadow-lg  hover:shadow-violet-600/70'>
-								<Plus />
-							</button>
+<button 
+  className='bg-[#6bffdf]/60 h-full w-full rounded-lg flex items-center justify-center opacity-60 hover:opacity-100 hover:bg-[#6bffdf]/90 transition shadow-lg  hover:shadow-violet-600/70'
+>
+  <Plus />
+  Create organization
+</button>
 						</Hint>
 					</div>
 				</DialogTrigger>
