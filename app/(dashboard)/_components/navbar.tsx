@@ -1,17 +1,8 @@
 'use client';
 
-<<<<<<< HEAD
-import {
-	UserButton,
-	OrganizationSwitcher,
-	useOrganization,
-} from '@clerk/nextjs';
-
-import { SearchInput } from './search-input';
-=======
 import { OrganizationSwitcher, UserButton, useOrganization } from '@clerk/nextjs';
 import {SearchInput} from './search-input';
->>>>>>> b10ffbd9204f4e4d7e09c7d55dbcf6f328198ea9
+
 import { InviteButton } from './invite-button';
 
 export const Navbar = () => {
