@@ -9,6 +9,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 import { formatDistanceToNow } from 'date-fns';
 import { useAuth } from "@clerk/nextjs";
+import { Actions } from "@/components/actions";
+import { sign } from "crypto";
 
 interface BoardCardProps {
     id: string;
@@ -49,7 +51,22 @@ export const BoardCard = ({
                         className='object-fit'
                         priority={true}
 						/>
-						<Overlay />
+                    <Overlay />
+                    <Actions
+                        side='right'
+                        id={ id }
+                        title={ title }
+                    >
+                        <button className="absolute right-1 top-1 opacity-0 group-hover:opacity-100 transition-opacity px-1 py-1 outline-none">
+                            <Image
+                                src='/icons/More.svg'
+                                alt="More icon"
+                                width={ 28 }
+                                height={ 28 }
+                                className="text-white opacity-65 hover:opacity-100 transition-opacity bg-white rounded-lg"
+                            />
+                        </button>
+                    </Actions>
 					</div>
 					<Footer
 						isFavorite={isFavorite}

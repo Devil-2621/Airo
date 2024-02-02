@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { Toaster } from "@/components/ui/sonner";
 import { ConvexClientProvider } from "@/providers/convex-client-provider";
+import { ModalProvider } from "@/providers/modal-provider";
 
 const pop = Poppins({ weight: '300',  style: 'normal', subsets: ['latin']});
 
@@ -22,6 +23,7 @@ export default function RootLayout({
 			<body className={pop.className}>
         <ConvexClientProvider>
           <Toaster richColors closeButton theme="light" />
+          <ModalProvider />
 					{children}
 				</ConvexClientProvider>
 			</body>
