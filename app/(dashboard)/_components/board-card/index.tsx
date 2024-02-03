@@ -14,6 +14,8 @@ import { formatDistanceToNow } from 'date-fns';
 import { useAuth } from "@clerk/nextjs";
 import { Actions } from "@/components/actions";
 import { Button } from "@/components/ui/button";
+import router from "next/navigation";
+import { Url } from "url";
 
 interface BoardCardProps {
     id: string;
@@ -43,7 +45,7 @@ export const BoardCard = ({
         addSuffix: true,
     });
 
-    const { mutate: onFavorite, pending: pendingFavorite} = useApiMutation(api.board.favorite);
+    const { mutate: onFavorite, pending: pendingFavorite } = useApiMutation(api.board.favorite);
     const { mutate: onUnFavorite, pending: pendingUnFavorite } = useApiMutation(api.board.unfavorite);
     
     const toggleFavorite = () => {
@@ -53,12 +55,12 @@ export const BoardCard = ({
         }
         else {
             onFavorite({ id, orgId })
-            .catch(() => toast.error('Failed to favorite'));
+                .catch(() => toast.error('Failed to favorite'));
         }
     };
-
+    
     return (
-			<Link href={`/board/${id}`}>
+        <Link href={ `/board/${id}` }>
 				<div className='group aspect-[100/127] border shadow-lg hovershadow-xl hover:shadow-violet-300 rounded-lg flex flex-col justify-between overflow-hidden'>
 					<div className='relative flex-1 bg-amber-50'>
 						<Image

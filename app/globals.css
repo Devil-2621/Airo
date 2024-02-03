@@ -8,7 +8,7 @@ body,
   height: 100%;
   /* background-color: rgba(47, 31, 152, 0.066); */
 }
- 
+
 @layer base {
   :root {
     --background: 0 0% 100%;

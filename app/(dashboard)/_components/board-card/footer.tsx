@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import FavSelected from '../../../../public/icons/Fav-Selected-Star.svg';
 
 import { cn } from '@/lib/utils';
 import { Star } from 'lucide-react';
@@ -42,22 +43,38 @@ export const Footer = ({
 						'opacity-0 group-hover:opacity-100 transition absolute top-3 right-3 text-muted-foreground hover:text-blue-600',
 						disabled && 'cursor-not-allowed opacity-75'
 					)}
-				>
+			>
+				{
+					isFavorite ? (
+					<Image
+						src='/icons/Fav-Selected-Star.svg'
+						alt='Favorite Selected icon'
+						width={25}
+						height={25}
+						className='opacity-80'
+					/>
+					) : (<Image
+						src='/icons/Star.svg'
+						alt='Favorite icon'
+						width={25}
+						height={25}
+						className='opacity-85 hover:opacity-100'
+					/>
+					)
+				}
 					{/* <Image
-                    src='/icons/Star-Fav.svg'
-                    alt='Favorite icon'
-                    width={25}
-                    height={25}
-					className={cn(
-						isFavorite && 'bg-amber-900',
-					)}
+						src='/icons/Star-Fav.svg'
+						alt='Favorite icon'
+						width={25}
+						height={25}
+						className={cn(isFavorite && '.favselected')}
 					/> */}
-					<Star
+					{/* <Star
 						className={cn(
 							'h-4 w-4',
 							isFavorite && 'fill-blue-600 text-blue-600'
 						)}
-					/>
+					/> */}
 				</button>
 			</div>
 		);

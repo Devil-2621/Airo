@@ -25,7 +25,7 @@ export const NewBoardButton = ({
         })
             .then((id) => {
                 toast.success('Board created successfully');
-                router.push(`/board/${id}`);
+                // router.push(`/board/${id}`);
 
                 // TODO: Redirect to board/{id}
             })
