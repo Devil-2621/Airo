@@ -60,14 +60,14 @@ export const BoardCard = ({
     };
     
     return (
-        <Link href={ `/board/${id}` }>
+			<Link href={`/board/${id}`}>
 				<div className='group aspect-[100/127] border shadow-lg hovershadow-xl hover:shadow-violet-300 rounded-lg flex flex-col justify-between overflow-hidden'>
 					<div className='relative flex-1 bg-amber-50'>
 						<Image
 							src={imageUrl}
 							alt={title}
 							fill
-							className='object-fit'
+							className='object-fi'
 							priority={true}
 						/>
 						<Overlay />
@@ -82,7 +82,7 @@ export const BoardCard = ({
 									alt='More icon'
 									width={28}
 									height={28}
-									className='text-white opacity-65 hover:opacity-100 transition-opacity bg-white rounded-lg'
+									className='text-white opacity-65 hover:opacity-100 transition-opacity bg-white rounded-lg h-auto w-auto'
 								/>
 							</Button>
 						</Actions>

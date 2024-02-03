@@ -8,8 +8,7 @@ export const Loading = () => {
                 alt="loader"
                 width={ 220 }
                 height={ 220 }
-                className="transparent"
-                priority={true}
+                priority={ true }
             />
         </div>
     )

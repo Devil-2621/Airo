@@ -38,9 +38,9 @@ export const SearchInput = () => {
 			<Image
 				src='/icons/Search.svg'
 				alt='Search Icon'
-				width={ 25 }
-				height={ 25 }
-				className='absolute top-1/2 left-3 transform -translate-y-[55%] text-muted-foreground'
+				width={25}
+				height={25}
+				className='absolute top-1/2 left-3 transform -translate-y-[55%] text-muted-foreground h-auto w-auto'
 			/>
 			<Input
 				className='w-full max-w-[516px] pl-12'

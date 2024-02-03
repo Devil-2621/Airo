@@ -23,8 +23,9 @@ export const NewButton = () => {
 							<Image
 								src='/icons/Plus.svg'
 								alt='Plus icon'
-								width={ 50 }
-								height={ 50 }
+								width={50}
+								height={50}
+								className='h-auto w-12'
 							/>
 						</button>
 					</Hint>

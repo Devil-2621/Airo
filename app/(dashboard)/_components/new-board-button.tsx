@@ -45,7 +45,7 @@ export const NewBoardButton = ({
                 alt="Create Board Plus icon"
                 height={ 40 }
                 width={ 40 }
-                className=""
+                className="h-50 w-50"
             />
             <p className="text-md text-white font-light">
                 New Board

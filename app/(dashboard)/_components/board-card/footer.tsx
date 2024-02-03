@@ -43,25 +43,24 @@ export const Footer = ({
 						'opacity-0 group-hover:opacity-100 transition absolute top-3 right-3 text-muted-foreground hover:text-blue-600',
 						disabled && 'cursor-not-allowed opacity-75'
 					)}
-			>
-				{
-					isFavorite ? (
-					<Image
-						src='/icons/Fav-Selected-Star.svg'
-						alt='Favorite Selected icon'
-						width={25}
-						height={25}
-						className='opacity-80'
-					/>
-					) : (<Image
-						src='/icons/Star.svg'
-						alt='Favorite icon'
-						width={25}
-						height={25}
-						className='opacity-85 hover:opacity-100'
-					/>
-					)
-				}
+				>
+					{isFavorite ? (
+						<Image
+							src='/icons/Fav-Selected-Star.svg'
+							alt='Favorite Selected icon'
+							width={25}
+							height={25}
+							className='opacity-80 h-auto w-auto'
+						/>
+					) : (
+						<Image
+							src='/icons/Star.svg'
+							alt='Favorite icon'
+							width={25}
+							height={25}
+							className='opacity-85 hover:opacity-100 h-auto w-auto'
+						/>
+					)}
 					{/* <Image
 						src='/icons/Star-Fav.svg'
 						alt='Favorite icon'

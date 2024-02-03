@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { LayoutDashboard, Star } from 'lucide-react';
 import { OrganizationSwitcher } from '@clerk/nextjs';
 import { useSearchParams } from 'next/navigation';
 
@@ -23,6 +22,7 @@ export const OrgSidebar = () => {
 						alt='Logo'
 						height={120}
 						width={120}
+						className='h-auto w-auto'
 					/>
 				</div>
 			</Link>
@@ -57,11 +57,11 @@ export const OrgSidebar = () => {
 					<Link href='/'>
 						{/* <LayoutDashboard className='h-4 w-4 mr-2' /> */}
 						<Image
-							src='/icons/Category2.png'
+							src='/icons/Category2.svg'
 							alt='TeamBoard icon'
 							height={32}
 							width={32}
-							className=''
+							className='h-8 w-8'
 						/>
 						Team boards
 					</Link>
@@ -80,11 +80,11 @@ export const OrgSidebar = () => {
 					>
 						{/* <Star className='h-4 w-4 mr-2' /> */}
 						<Image
-							src='/icons/Star.png'
+							src='/icons/Star.svg'
 							alt='Favorites icon'
 							height={32}
 							width={32}
-							className='bg-transparent'
+							className='h-8 w-8'
 						/>
 						Favorite boards
 					</Link>

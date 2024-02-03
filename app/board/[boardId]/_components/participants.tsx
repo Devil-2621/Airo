@@ -1,22 +1,19 @@
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from '@/components/ui/skeleton';
 
 export const Participants = () => {
-    return(
-        <div
-        className="h-12 mr-4 p-2 flex items-center justify-center bg-white rounded-md shadow-md"
-        >
-            List of users
-        </div>
-    )
-}
+	return (
+		<div className='absolute h-12 top-2 right-2 bg-white rounded-md p-2 flex items-center shadow-md'>
+			List of users
+		</div>
+	);
+};
 
-
-Participants.Skeleton = function ParticipantsSkeleton(){
-    return (
-			<div
-				className='bg-white rounded-md shadow-md w-[100px]'
-			>
-				<Skeleton className='h-full w-full bg-slate-300' />
-			</div>
-		);
-}
+Participants.Skeleton = function ParticipantsSkeleton() {
+	return (
+		<div
+			className='absolute h-12 top-2 right-2 bg-white rounded-md p-2 flex items-center shadow-md w-[100px]'
+		>
+			<Skeleton className='h-full w-full bg-slate-300' />
+		</div>
+	);
+};

@@ -22,7 +22,7 @@ export default function RootLayout({
 		<html lang='en'>
 			<body className={pop.className}>
         <ConvexClientProvider>
-          <Toaster richColors closeButton theme="light" />
+          <Toaster richColors closeButton theme="light" duration={3000} />
           <ModalProvider />
 					{children}
 				</ConvexClientProvider>
