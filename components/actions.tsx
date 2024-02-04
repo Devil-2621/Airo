@@ -19,6 +19,7 @@ import Image from "next/image";
 import { api } from "@/convex/_generated/api";
 import { Button } from "./ui/button";
 import { useRenameModal } from "@/store/use-rename-modal";
+import { redirect, useRouter } from "next/navigation";
 
 interface ActionProps {
     children: React.ReactNode;
@@ -32,7 +33,8 @@ export const Actions = ({
     children, side, sideOffset, id, title
 }: ActionProps) => {
 	const { onOpen } = useRenameModal();
-    const { mutate, pending } = useApiMutation(api.board.remove);
+	const { mutate, pending } = useApiMutation(api.board.remove);
+	const router = useRouter();
 
     const onCopyLink = () => {
         navigator.clipboard.writeText(
@@ -43,8 +45,8 @@ export const Actions = ({
     }
     
     const onDelete = () => {
-        mutate({ id })
-			.then(() => toast.success('Board deleted successfully'))
+		mutate({ id })
+			.then(() => { toast.success('Board deleted successfully'); router.push(`/`) })
 			.catch(() => toast.error('Failed to delete board'));
     }
 
