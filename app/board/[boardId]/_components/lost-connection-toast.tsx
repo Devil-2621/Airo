@@ -21,12 +21,7 @@ export function LostConnectionToasts() {
 
 	return (
 		<Toaster
-			position='bottom-center'
-			toastOptions={{
-				style: {
-                    borderRadius: '10px',
-				},
-			}}
+			position='top-center'
 		/>
 	);
 }

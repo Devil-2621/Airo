@@ -5,8 +5,8 @@ import { Info } from "./info"
 import { Participants } from "./participants"
 import { Toolbar } from "./toolbar"
 import { useSelf } from '@/liveblocks.config';
-import { Status } from './status';
-import { LostConnectionToasts } from './lost-connection-toast';
+import { Status } from '../_components/status';
+import { LostConnectionToasts } from '../_components/lost-connection-toast';
 
 interface CanvasProps {
     boardId: string;
