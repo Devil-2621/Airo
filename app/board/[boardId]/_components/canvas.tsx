@@ -8,6 +8,8 @@ import {
   Color,
   LayerType,
   Point,
+  Side,
+  XYWH,
 } from "../../../../types/canvas";
 import React from "react";
 import { Info } from "./info";
@@ -23,13 +25,14 @@ import {
   useStorage,
   useOthersMapped,
 } from "@/liveblocks.config";
-import { connectionIdToColor, pointerEventToCanvasPoint } from "@/lib/utils";
+import { connectionIdToColor, pointerEventToCanvasPoint, resizeBounds } from "@/lib/utils";
 
 import { CursorPresence } from "./cursors-presence";
 import { nanoid } from "nanoid";
 import { LiveObject } from "@liveblocks/client";
 import { LayerPreview } from "./layer-preview";
 import { SelectionBox } from "./selection-box";
+import { update } from '../../../../convex/board';
 const MAX_LAYERS = 100;
 
 interface CanvasProps {
@@ -88,6 +91,45 @@ export const Canvas = ({ boardId }: CanvasProps) => {
     [lastUsedColor]
   );
 
+
+
+  const resizeSelectedLayer = useMutation((
+    { storage, self },
+    point: Point,
+  ) => {
+    if (canvasState.mode !== CanvasMode.Resizing) {
+      return;
+    }
+
+    const bounds = resizeBounds(
+      canvasState.initialBounds,
+      canvasState.corner,
+      point,
+    );
+
+    const liveLayers = storage.get("layers");
+    const layer = liveLayers.get(self.presence.selection[0]);
+
+    if (layer) {
+      layer.update(bounds);
+    };
+  }, [canvasState]);
+
+  const onResizeHandlePointerDown = useCallback((
+    corner: Side,
+    initialBounds: XYWH
+  )=>{
+    // console.log({corner, initialBounds});
+    history.pause();
+    setCanvasState({
+      mode: CanvasMode.Resizing,
+      corner,
+      initialBounds,
+    });
+  },[history])
+
+
+
   const onWheel = useCallback((e: React.WheelEvent) => {
     // console.log({
     //   x:e.deltaX,
@@ -103,16 +145,25 @@ export const Canvas = ({ boardId }: CanvasProps) => {
       e.preventDefault();
       const current = pointerEventToCanvasPoint(e, camera);
 
+
+      if (canvasState.mode === CanvasMode.Resizing) {
+        resizeSelectedLayer(current);
+      }
+
       setMyPresence({ cursor: current });
     },
-    []
+    [
+      camera,
+      canvasState,
+      resizeSelectedLayer,
+    ]
   );
 
   const onPointerLeave = useMutation(({ setMyPresence }) => {
     setMyPresence({ cursor: null });
   }, []);
 
-  const onPinterUp = useMutation(
+  const onPointerUp = useMutation(
     ({}, e) => {
       const point = pointerEventToCanvasPoint(e, camera);
 
@@ -186,7 +237,6 @@ export const Canvas = ({ boardId }: CanvasProps) => {
 
 
 
-
   return (
     <main className="h-full w-full relative bg-neutral-100 touch-none">
       <Info boardId={boardId} />
@@ -207,7 +257,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
         onWheel={onWheel}
         onPointerMove={onPointerMove}
         onPointerLeave={onPointerLeave}
-        onPointerUp={onPinterUp}
+        onPointerUp={onPointerUp}
       >
         <g
           style={{
@@ -224,7 +274,7 @@ export const Canvas = ({ boardId }: CanvasProps) => {
             />
           ))}
           <SelectionBox
-                    onResizeHandlePointerDown={() => {}}
+                    onResizeHandlePointerDown={onResizeHandlePointerDown}
 
           />
 
