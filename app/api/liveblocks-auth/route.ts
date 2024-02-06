@@ -3,44 +3,72 @@ import { Liveblocks } from '@liveblocks/node';
 import { ConvexHttpClient } from 'convex/browser';
 
 import { api } from '@/convex/_generated/api';
+import { headers } from 'next/headers';
 
-const convex = new ConvexHttpClient(
-    process.env.NEXT_PUBLIC_CONVEX_URL!
-);
+const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
 const liveblocks = new Liveblocks({
 	secret: process.env.NEXT_LIVEBLOCKS_SECRET_KEY! as string,
 });
 
 export async function POST(request: Request) {
-    const authorization = await auth();
-    const user = await currentUser();
+	const headersList = headers();
+	const activePath = headersList.get('referer')?.includes('board');
 
-    if (!authorization || !user) {
-        return new Response('Unauthorized', { status: 403 });
-    };
+	if (!activePath) {
+		const authorization = await auth();
+		const user = await currentUser();
 
-    const { room } = await request.json();
-    const board = await convex.query(api.board.get, { id: room });
+		if (!authorization || !user) {
+			return new Response('Unauthorized', { status: 403 });
+		}
 
-    if (board?.orgId !== authorization.orgId) {
-        return new Response('Unauthorized', { status: 403 });
-    };
+		const { room } = await request.json();
+		const note = await convex.query(api.note.get, { id: room });
 
-    const userInfo = {
-		name: user.firstName || 'Team Member',
-		picture: user.imageUrl,
-    };
-    
-    const session = liveblocks.prepareSession(
-        user.id,
-        { userInfo }
-    );
+		if (note?.orgId !== authorization.orgId) {
+			return new Response('Unauthorized', { status: 403 });
+		}
 
-    if (room) {
-        session.allow(room, session.FULL_ACCESS);
-    };
+		const userInfo = {
+			name: user.firstName || 'Team Member',
+			picture: user.imageUrl,
+		};
 
-    const { status, body } = await session.authorize();
-    return new Response(body, { status });
-};
+		const session = liveblocks.prepareSession(user.id, { userInfo });
+
+		if (room) {
+			session.allow(room, session.FULL_ACCESS);
+		}
+
+		const { status, body } = await session.authorize();
+		return new Response(body, { status });
+	} else {
+		const authorization = await auth();
+		const user = await currentUser();
+
+		if (!authorization || !user) {
+			return new Response('Unauthorized', { status: 403 });
+		}
+
+		const { room } = await request.json();
+		const board = await convex.query(api.board.get, { id: room });
+
+		if (board?.orgId !== authorization.orgId) {
+			return new Response('Unauthorized', { status: 403 });
+		}
+
+		const userInfo = {
+			name: user.firstName || 'Team Member',
+			picture: user.imageUrl,
+		};
+
+		const session = liveblocks.prepareSession(user.id, { userInfo });
+
+		if (room) {
+			session.allow(room, session.FULL_ACCESS);
+		}
+		const { status, body } = await session.authorize();
+		return new Response(body, { status });
+	}
+}

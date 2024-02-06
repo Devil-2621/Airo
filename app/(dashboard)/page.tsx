@@ -3,7 +3,9 @@
 import { useOrganization } from '@clerk/nextjs';
 
 import { EmptyOrg } from './_components/empty-org';
-import { BoardList } from './_components/board-list';
+import { BoardList } from './_components/board/board-list';
+import { NoteList } from './_components/note/note-list';
+import { OrgSidebar } from './_components/org-sidebar';
 
 interface DashboardPageProps {
 	searchParams: {
@@ -16,16 +18,25 @@ const DashboardPage = ({ searchParams }: DashboardPageProps) => {
 	const { organization } = useOrganization();
 
 	return (
+		<>
 		<div className='flex-1 h-[calc(100%-80px)] p-6'>
 			{!organization ? (
 				<EmptyOrg />
 			) : (
-				<BoardList
-					orgId={organization.id}
-					query={searchParams}
-				/>
+					<>
+						{/* <OrgSidebar /> */ }
+					<BoardList
+						orgId={organization.id}
+						query={searchParams}
+					/>
+					<NoteList
+						orgId={organization.id}
+						query={searchParams}
+					/>
+					</>
 			)}
 		</div>
+		</>
 	);
 };
 

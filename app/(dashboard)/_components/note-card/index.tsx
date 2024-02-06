@@ -14,10 +14,10 @@ import { formatDistanceToNow } from 'date-fns';
 import { useAuth } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import router from "next/navigation";
-import { Url } from "url";
-import { BoardActions } from "../board/board-actions";
+import { NoteActions } from "../note/note-actions";
 
-interface BoardCardProps {
+
+interface NoteCardProps {
     id: string;
     title: string;
     authorName: string;
@@ -28,7 +28,7 @@ interface BoardCardProps {
     isFavorite: boolean;
 }
 
-export const BoardCard = ({
+export const NoteCard = ({
     id,
     title,
     authorName,
@@ -37,7 +37,7 @@ export const BoardCard = ({
     imageUrl,
     orgId,
     isFavorite,
-}: BoardCardProps) => {
+}: NoteCardProps) => {
     const { userId } = useAuth();
 
     const authorLabel = userId === authorId ? 'You' : 'AuthorName';
@@ -45,8 +45,8 @@ export const BoardCard = ({
         addSuffix: true,
     });
 
-    const { mutate: onFavorite, pending: pendingFavorite } = useApiMutation(api.board.favorite);
-    const { mutate: onUnFavorite, pending: pendingUnFavorite } = useApiMutation(api.board.unfavorite);
+    const { mutate: onFavorite, pending: pendingFavorite } = useApiMutation(api.note.favorite);
+    const { mutate: onUnFavorite, pending: pendingUnFavorite } = useApiMutation(api.note.unfavorite);
     
     const toggleFavorite = () => {
         if (isFavorite) {
@@ -60,7 +60,7 @@ export const BoardCard = ({
     };
     
     return (
-			<Link href={`/board/${id}`}>
+			<Link href={`/note/${id}`}>
 				<div className='group aspect-[100/127] border shadow-lg hovershadow-xl hover:shadow-violet-300 rounded-lg flex flex-col justify-between overflow-hidden'>
 					<div className='relative flex-1 bg-amber-50'>
 						<Image
@@ -71,7 +71,7 @@ export const BoardCard = ({
 							priority={true}
 						/>
 						<Overlay />
-						<BoardActions
+						<NoteActions
 							side='right'
 							id={id}
 							title={title}
@@ -85,7 +85,7 @@ export const BoardCard = ({
 									className='text-white opacity-65 hover:opacity-100 transition-opacity bg-white rounded-lg h-auto w-auto'
 								/>
 							</Button>
-						</BoardActions>
+						</NoteActions>
 					</div>
 					<Footer
 						isFavorite={isFavorite}
@@ -100,7 +100,7 @@ export const BoardCard = ({
 		);
 };
 
-BoardCard.Skeleton = function BoardCardSkeleton() {
+NoteCard.Skeleton = function NoteCardSkeleton() {
     return (
         <div className="aspect-[100/127] rounded-lg overflow-hidden">
             <Skeleton className="h-full w-full" />

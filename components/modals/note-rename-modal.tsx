@@ -1,6 +1,6 @@
 'use client';
 
-import { useRenameModal } from '@/store/use-rename-modal';
+import { useNoteRenameModal } from '@/store/use-note-rename-modal';
 import {
 	Dialog,
 	DialogContent,
@@ -17,10 +17,10 @@ import { useApiMutation } from '@/hooks/use-api-mutation';
 import { api } from '@/convex/_generated/api';
 import { toast } from 'sonner';
 
-export const RenameModal = () => {
-    const { mutate, pending } = useApiMutation(api.board.update);
+export const NoteRenameModal = () => {
+    const { mutate, pending } = useApiMutation(api.note.update);
 
-	const { isOpen, onClose, initialValues } = useRenameModal();
+	const { isOpen, onClose, initialValues } = useNoteRenameModal();
 
 	const [title, setTitle] = useState(initialValues.title);
 
@@ -36,10 +36,10 @@ export const RenameModal = () => {
             title,
         })
             .then(() => {
-                toast.success('Board renamed successfully');
+                toast.success('Note renamed successfully');
                 onClose();
             })
-        .catch(() => toast.error('Failed to rename board'));
+        .catch(() => toast.error('Failed to rename note'));
     };
 
 	return (
@@ -49,9 +49,9 @@ export const RenameModal = () => {
 		>
 			<DialogContent>
 				<DialogHeader>
-					<DialogTitle>Edit board title</DialogTitle>
+					<DialogTitle>Edit note title</DialogTitle>
 					<DialogDescription>
-						Enter a new title for this board.
+						Enter a new title for this note.
 					</DialogDescription>
 					<form
 						onSubmit={onSubmit}
@@ -63,7 +63,7 @@ export const RenameModal = () => {
 							maxLength={60}
 							value={title}
 							onChange={(e) => setTitle(e.target.value)}
-                            placeholder='Board title'
+                            placeholder='Note title'
                             className='text-black font-semibold border-slate-300 my-4'
 						/>
 						<DialogFooter>
