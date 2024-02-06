@@ -38,11 +38,27 @@ import { Info } from './info';
 import { Path } from './path';
 import { Toolbar } from './toolbar';
 import { Participants } from './participants';
-import { LayerPreview } from './layer-preview';
-import { SelectionBox } from './selection-box';
-import { SelectionTools } from './selection-tools';
-import { CursorPresence } from './cursors-presence';
+import { Toolbar } from './toolbar';
+import { Status } from '../_components/status';
+import { LostConnectionToasts } from '../_components/lost-connection-toast';
+import {
+	useHistory,
+	useCanUndo,
+	useCanRedo,
+	useMutation,
+	useStorage,
+	useOthersMapped,
+} from '@/liveblocks.config';
+import { connectionIdToColor, pointerEventToCanvasPoint } from '@/lib/utils';
 
+import { CursorPresence } from "./cursors-presence";
+import { nanoid } from "nanoid";
+import { LiveObject } from "@liveblocks/client";
+import { LayerPreview } from "./layer-preview";
+import { SelectionBox } from "./selection-box";
+import { update } from '../../../../convex/board';
+import { set } from "date-fns";
+import { SelectionTools } from "./selection-tools";
 const MAX_LAYERS = 100;
 
 interface CanvasProps {
@@ -428,54 +444,52 @@ export const Canvas = ({ boardId }: CanvasProps) => {
 		};
 	}, [deleteLayers, history]);
 
-	return (
-		<main className='h-full w-full relative bg-neutral-100 touch-none'>
-			<Info boardId={boardId} />
-			<Participants />
-			<Toolbar
-				canvasState={canvasState}
-				setCanvasState={setCanvasState}
-				canRedo={canRedo}
-				canUndo={canUndo}
-				undo={history.undo}
-				redo={history.redo}
-			/>
-			<SelectionTools
-				camera={camera}
-				setLastUsedColor={setLastUsedColor}
-			/>
-			<svg
-				className='h-[100vh] w-[100vw]'
-				onWheel={onWheel}
-				onPointerMove={onPointerMove}
-				onPointerLeave={onPointerLeave}
-				onPointerDown={onPointerDown}
-				onPointerUp={onPointerUp}
-			>
-				<g
-					style={{
-						transform: `translate(${camera.x}px, ${camera.y}px)`,
-					}}
-				>
-					{layerIds.map((layerId) => (
-						<LayerPreview
-							key={layerId}
-							id={layerId}
-							onLayerPointerDown={onLayerPointerDown}
-							selectionColor={layerIdsToColorSelection[layerId]}
-						/>
-					))}
-					<SelectionBox onResizeHandlePointerDown={onResizeHandlePointerDown} />
-					{canvasState.mode === CanvasMode.SelectionNet &&
-						canvasState.current != null && (
-							<rect
-								className='fill-blue-500/5 stroke-blue-500 stroke-1'
-								x={Math.min(canvasState.origin.x, canvasState.current.x)}
-								y={Math.min(canvasState.origin.y, canvasState.current.y)}
-								width={Math.abs(canvasState.origin.x - canvasState.current.x)}
-								height={Math.abs(canvasState.origin.y - canvasState.current.y)}
-							/>
-						)}
+  return (
+    <main className="h-full w-full relative bg-neutral-100 touch-none">
+      <Info boardId={boardId} />
+      <Participants />
+      <div className="absolute right-2 bottom-3">
+        <Status />
+      </div>
+      <Toolbar
+        canvasState={canvasState}
+        setCanvasState={setCanvasState}
+        undo={history.undo}
+        redo={history.redo}
+        canUndo={canUndo}
+        canRedo={canRedo}
+      />
+            <SelectionTools
+        camera={camera}
+        setLastUsedColor={setLastUsedColor}
+      />
+      <svg
+        className="h-[100vh] w-[100vw]"
+        onWheel={onWheel}
+        onPointerMove={onPointerMove}
+        onPointerLeave={onPointerLeave}
+        onPointerUp={onPointerUp}
+        onPointerDown={onPointerDown}
+      >
+        <g
+          style={{
+            transform: `translate(${camera.x}px, ${camera.y}px)`,
+          }}
+        >
+
+{layerIds.map((layerId) => (
+            <LayerPreview
+              key={layerId}
+              id={layerId}
+              onLayerPointerDown={onLayerPointerDown}
+              selectionColor = {layerIdsToColorSelection[layerId]}
+            />
+          ))}
+          <SelectionBox
+                    onResizeHandlePointerDown={onResizeHandlePointerDown}
+
+          />
+
 					<CursorPresence />
 					{pencilDraft != null && pencilDraft.length > 0 && (
 						<Path
