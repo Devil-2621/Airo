@@ -14,9 +14,9 @@ export const OrgSidebar = () => {
 	const favorites = searchParams.get('favorites');
 
 	return (
-		<div className='hidden lg:flex flex-col space-y-6 w-[206px] px-3 pt-5'>
+		<div className='hidden lg:flex flex-col space-y-6 w-[206px] px-3 pt-5 sticky'>
 			<Link href='/'>
-				<div className='flex items-center gap-x-2 rounded-full mx-8'>
+				<div className='flex items-center gap-x-2 rounded-full mx-8 fixed'>
 					<Image
 						src='/logo.png'
 						alt='Logo'
@@ -26,33 +26,38 @@ export const OrgSidebar = () => {
 					/>
 				</div>
 			</Link>
-			<OrganizationSwitcher
-				hidePersonal
-				appearance={{
-					elements: {
-						rootBox: {
-							display: 'flex',
-							justifyContent: 'center',
-							alignItems: 'center',
-							width: '100%',
+			<div className='text-wrap fixed max-w-48 top-24'>
+				<OrganizationSwitcher
+					hidePersonal
+					appearance={{
+						elements: {
+							rootBox: {
+								display: 'flex',
+								justifyContent: 'center',
+								alignItems: 'center',
+								width: '100%',
+							},
+							organizationSwitcherTrigger: {
+								padding: '6px',
+								width: '100%',
+								borderRadius: '8px',
+								border: '1px solid #E5E7EB',
+								justifyContent: 'space-between',
+								backgroundColor: 'white',
+								marginLeft: '10px',
+								marginRight: '8px',
+
+							},
 						},
-						organizationSwitcherTrigger: {
-							padding: '6px',
-							width: '100%',
-							borderRadius: '8px',
-							border: '1px solid #E5E7EB',
-							justifyContent: 'space-between',
-							backgroundColor: 'white',
-						},
-					},
-				}}
-			/>
+					}}
+				/>
+			</div>
 			<div className='space-y-1 w-full'>
 				<Button
 					variant={favorites ? 'ghost' : 'secondary'}
 					asChild
 					size='lg'
-					className='font-normal justify-start px-2 w-full gap-2'
+					className='font-normal justify-start px-1 w-full gap-2 text-wrap fixed max-w-48 top-48'
 				>
 					<Link href='/'>
 						{/* <LayoutDashboard className='h-4 w-4 mr-2' /> */}
@@ -63,14 +68,14 @@ export const OrgSidebar = () => {
 							width={32}
 							className='h-8 w-8'
 						/>
-						Team boards
+						Team boards & notes
 					</Link>
 				</Button>
 				<Button
 					variant={favorites ? 'secondary' : 'ghost'}
 					asChild
 					size='lg'
-					className='font-normal justify-start px-2 w-full gap-2'
+					className='font-normal justify-start px-1 w-full gap-2 text-wrap fixed max-w-48 top-60'
 				>
 					<Link
 						href={{
@@ -86,7 +91,7 @@ export const OrgSidebar = () => {
 							width={32}
 							className='h-8 w-8'
 						/>
-						Favorite boards
+						Favorite boards & notes
 					</Link>
 				</Button>
 			</div>

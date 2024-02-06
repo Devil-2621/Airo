@@ -1,7 +1,7 @@
 'use client';
 
 interface InfoProps {
-	boardId: string;
+	noteId: string;
 };
 
 import { Button } from '@/components/ui/button';
@@ -15,8 +15,8 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Hint } from '@/components/hint';
 import { Separator } from '@/components/ui/separator';
-import { useBoardRenameModal } from '@/store/use-board-rename-modal';
-import { BoardActions } from '@/app/(dashboard)/_components/board/board-actions';
+import { useNoteRenameModal } from '@/store/use-note-rename-modal';
+import { NoteActions } from '@/app/(dashboard)/_components/note/note-actions';
 
 const pop = Poppins({
 	subsets: ['latin'],
@@ -24,11 +24,11 @@ const pop = Poppins({
 });
 
 export const Info = ({
-	boardId,
+	noteId,
 }: InfoProps) => {
-	const { onOpen } = useBoardRenameModal();
-	const data = useQuery(api.board.get, {
-		id: boardId as Id<'boards'>,
+	const { onOpen } = useNoteRenameModal();
+	const data = useQuery(api.note.get, {
+		id: noteId as Id<'notes'>,
 	});
 
 	if (!data) {
@@ -79,7 +79,7 @@ export const Info = ({
 				</Button>
 			</Hint>
 			<Separator orientation='vertical' className='w-0.5 m-1' />
-			<BoardActions
+			<NoteActions
 				id={ data._id }
 				title={ data.title }
 				side='bottom'
@@ -97,7 +97,7 @@ export const Info = ({
 					</Button>
 					</Hint>
 				</div>
-			</BoardActions>
+			</NoteActions>
 		</div>
 	);
 };

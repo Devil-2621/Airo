@@ -44,7 +44,7 @@ export const SearchInput = () => {
 			/>
 			<Input
 				className='w-full max-w-[516px] pl-12'
-				placeholder='Search boards'
+				placeholder='Search boards and notes'
 				onChange={handleChange}
 				value={value}
 			/>

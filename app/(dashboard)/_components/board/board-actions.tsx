@@ -3,12 +3,12 @@
 import { DropdownMenuContentProps } from "@radix-ui/react-dropdown-menu";
 
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-    DropdownMenuSeparator
-} from "./ui/dropdown-menu";
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuTrigger,
+	DropdownMenuSeparator
+} from '@/components/ui/dropdown-menu';
 import { ConfirmModal } from "@/components/confirm-modal";
 
 import { useApiMutation } from "@/hooks/use-api-mutation";
@@ -17,11 +17,11 @@ import Link from "next/link";
 import { toast } from "sonner";
 import Image from "next/image";
 import { api } from "@/convex/_generated/api";
-import { Button } from "./ui/button";
-import { useRenameModal } from "@/store/use-rename-modal";
+import { Button } from "@/components/ui/button";
+import { useBoardRenameModal } from "@/store/use-board-rename-modal";
 import { redirect, useRouter } from "next/navigation";
 
-interface ActionProps {
+interface BoardActionProps {
     children: React.ReactNode;
     side?: DropdownMenuContentProps['side'];
     sideOffset?: DropdownMenuContentProps['sideOffset'];
@@ -29,10 +29,10 @@ interface ActionProps {
     title: string;
 };
 
-export const Actions = ({
+export const BoardActions = ({
     children, side, sideOffset, id, title
-}: ActionProps) => {
-	const { onOpen } = useRenameModal();
+}: BoardActionProps) => {
+	const { onOpen } = useBoardRenameModal();
 	const { mutate, pending } = useApiMutation(api.board.remove);
 	const router = useRouter();
 
