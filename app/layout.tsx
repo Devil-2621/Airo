@@ -6,6 +6,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { ConvexClientProvider } from "@/providers/convex-client-provider";
 import { BoardModalProvider } from "@/providers/board-modal-provider";
 import { NoteModalProvider } from "@/providers/note-modal-provider";
+import { Suspense } from "react";
+import { Loading } from "@/components/auth/loading";
 
 const pop = Poppins({ weight: '300',  style: 'normal', subsets: ['latin']});
 
@@ -21,13 +23,15 @@ export default function RootLayout({
 }>) {
   return (
 		<html lang='en'>
-			<body className={pop.className}>
+      <body className={ pop.className }>
+        <Suspense fallback={<Loading />}>
         <ConvexClientProvider>
           <Toaster richColors closeButton theme="light" duration={3000} />
           <BoardModalProvider />
           <NoteModalProvider />
 					{children}
 				</ConvexClientProvider>
+        </Suspense>
 			</body>
 		</html>
 	);
