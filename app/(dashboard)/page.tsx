@@ -24,7 +24,6 @@ const DashboardPage = ({ searchParams }: DashboardPageProps) => {
 				<EmptyOrg />
 			) : (
 					<>
-						{/* <OrgSidebar /> */ }
 					<BoardList
 						orgId={organization.id}
 						query={searchParams}

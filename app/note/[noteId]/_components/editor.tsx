@@ -182,7 +182,7 @@ function BlockNote({ doc, provider }: EditorProps) {
 
 	return (
 		<div className='w-6xl h-full flex flex-col justify-center items-center overflow-scroll mt-4'>
-			<header className='pt-8 z-10'>
+			<header className='pt-8 -z-5 max-sm:pt-32'>
 				<Button
 					className=''
 					variant='outline'
@@ -196,15 +196,15 @@ function BlockNote({ doc, provider }: EditorProps) {
 					)}
 				</Button>
 			</header>
-			<div className='w-[60%] h-full'>
-				<div className='flex flex-col justify-center items-center bg-white rounded-lg mx-4 my-2'>
-					<h1 className='text-6xl h-[50px] my-2 font-semibold font-sans'>
-						<span className='text-5xl bg-yellow-100 rounded-full px-4 pb-1'>
+			<div className='w-[60%] max-2xl:w-[75%] max-xl:w-[85%] max-lg:w-[90%] max-md:w-[95%] max-sm:w-[100%] h-full'>
+				<div className='flex flex-col justify-center items-center bg-white rounded-lg mx-4 my-2 p-4'>
+					<h1 className='max-sm:text-2xl max-md:text-4xl max-lg:text-4xl text-6xl h-[50px] my-2 font-semibold font-sans'>
+						<span className='max-sm:text-2xl max-md:text-4xl max-lg:text-4xl text-6xl bg-yellow-100 rounded-full px-4 pb-1'>
 							Notes📝
 						</span>{' '}
 						at your command.
 					</h1>
-					<p className='text-lg mt-6 font-sans font-normal'>
+					<p className='max-sm:text-xs max-md:text-sm max-lg:text-md max-xl:text-lg text-wrap mt-6 max-sm:mt-1 max-md:mt-2 max-lg:mt-4 font-sans font-normal'>
 						This is wonderful right? gonna fall in{' '}
 						<span className='bg-red-100 rounded-full font-semibold px-2'>
 							💖Love

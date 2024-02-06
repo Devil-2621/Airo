@@ -1,7 +1,7 @@
 export default {
 	providers: [
 		{
-			domain: 'https://sweeping-cicada-21.clerk.accounts.dev',
+			domain: 'https://humble-grub-45.clerk.accounts.dev',
 			applicationID: 'convex',
 		},
 	],
