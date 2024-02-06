@@ -181,7 +181,7 @@ function BlockNote({ doc, provider }: EditorProps) {
 	// }>;
 
 	return (
-		<div className='w-6xl h-full flex flex-col justify-center items-center overflow-scroll mt-4'>
+		<div className='w-6xl h-full flex flex-col justify-center items-center overflow-scroll mt-4 -z-9'>
 			<header className='pt-8 -z-5 max-sm:pt-32'>
 				<Button
 					className=''

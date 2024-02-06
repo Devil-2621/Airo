@@ -15,7 +15,7 @@ export const Canvas = ({
   noteId,
 }: CanvasProps) => {
   return (
-		<main className='w-full h-full relative flex flex-col bg-neutral-200 touch-none scroll-smooth'>
+		<main className='w-full h-full relative flex flex-col bg-neutral-200 touch-none scroll-smooth z-10'>
 				<Info noteId={noteId} />
 				<Participants />
 				<div className='absolute right-2 bottom-3'>
