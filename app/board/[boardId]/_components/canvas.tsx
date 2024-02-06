@@ -229,14 +229,14 @@ return;
   );
 
 
-	const onPinterUp = useMutation(
-		({}, e) => {
-			const point = pointerEventToCanvasPoint(e, camera);
+  const onPointerUp = useMutation(
+    ({}, e) => {
+      const point = pointerEventToCanvasPoint(e, camera);
 
-			// console.log({
-			//   point,
-			//   mode: canvasState.mode,
-			// });
+      // console.log({
+      //   point,
+      //   mode: canvasState.mode,
+      // });
 
 
       if (
