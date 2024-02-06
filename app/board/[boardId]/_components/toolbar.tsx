@@ -38,7 +38,7 @@ export const Toolbar = ({
 					onClick={() => setCanvasState({ mode: CanvasMode.None })}
 					isActive={
 						canvasState.mode === CanvasMode.None ||
-						canvasState.mode === CanvasMode.Selectionnet ||
+						canvasState.mode === CanvasMode.SelectionNet ||
 						canvasState.mode === CanvasMode.Pressing ||
 						canvasState.mode === CanvasMode.Resizing ||
 						canvasState.mode === CanvasMode.Translating
