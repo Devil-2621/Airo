@@ -5,36 +5,32 @@ import { useOrganization } from '@clerk/nextjs';
 import { EmptyOrg } from './_components/empty-org';
 import { BoardList } from './_components/board/board-list';
 import { NoteList } from './_components/note/note-list';
-import { OrgSidebar } from './_components/org-sidebar';
+import { useSearchParams } from 'next/navigation';
 
-interface DashboardPageProps {
-	searchParams: {
-		search?: string;
-		favorites?: string;
-	};
-}
-
-const DashboardPage = ({ searchParams }: DashboardPageProps) => {
+const DashboardPage = () => {
 	const { organization } = useOrganization();
+	const searchParams = useSearchParams();
+	const search = searchParams.get('search') || undefined;
+	const favorites = searchParams.get('favorites') || undefined;
 
 	return (
 		<>
-		<div className='flex-1 h-[calc(100%-80px)] p-6'>
-			{!organization ? (
-				<EmptyOrg />
-			) : (
+			<div className='flex-1 h-[calc(100%-80px)] p-6'>
+				{!organization ? (
+					<EmptyOrg />
+				) : (
 					<>
-					<BoardList
-						orgId={organization.id}
-						query={searchParams}
-					/>
-					<NoteList
-						orgId={organization.id}
-						query={searchParams}
-					/>
+						<BoardList
+							orgId={organization.id}
+							query={{ search, favorites }}
+						/>
+						<NoteList
+							orgId={organization.id}
+							query={{ search, favorites }}
+						/>
 					</>
-			)}
-		</div>
+				)}
+			</div>
 		</>
 	);
 };
